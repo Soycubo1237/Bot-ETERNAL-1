@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node index.js"
   },
+  "engines": {
+    "node": "24.7.0"
+    "nmp": "11.5.1"
+  },
   "author": "PatroxWarez3546",
   "license": "MIT",
   "dependencies": {
