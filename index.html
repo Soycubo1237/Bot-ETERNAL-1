@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta RP - Formulario de Acceso y Verificación</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/1/1a/Flag_of_Argentina.svg" type="image/svg+xml">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        
+        :root {
+            --color-sky-blue: #74acdf; /* Azul celeste de la bandera argentina */
+            --color-white: #ffffff;
+            --color-gold: #fcd116;    /* Amarillo dorado del sol */
+            --color-dark-blue: #2c3e50; /* Azul oscuro para texto/botones */
+            --color-gray: #ecf0f1;
+            --color-light-gray: #bdc3c7;
+            --color-green: #27ae60;
+            --color-red: #e74c3c;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, var(--color-sky-blue), var(--color-white), var(--color-sky-blue));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--color-dark-blue);
+            line-height: 1.6;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.95); /* Fondo blanco semitransparente */
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            border: 3px solid var(--color-gold); /* Borde dorado */
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            color: var(--color-dark-blue);
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--color-gold);
+            border-radius: 2px;
+        }
+
+        h2 {
+            color: var(--color-dark-blue);
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .image-gallery img {
+            width: 150px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid var(--color-sky-blue);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.05);
+            border-color: var(--color-gold);
+        }
+
+        .button-section {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .main-button {
+            background-color: var(--color-sky-blue);
+            color: var(--color-white);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-button:hover {
+            background-color: var(--color-dark-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .main-button.admin {
+            background-color: var(--color-gold);
+            color: var(--color-dark-blue);
+        }
+
+        .main-button.admin:hover {
+            background-color: var(--color-sky-blue);
+            color: var(--color-white);
+        }
+
+        .form-section {
+            background-color: var(--color-white);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            text-align: left;
+            display: none; /* Oculto por defecto */
+            border: 2px dashed var(--color-sky-blue);
+        }
+
+        .form-section label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--color-dark-blue);
+        }
+
+        .form-section input[type="text"],
+        .form-section input[type="password"],
+        .form-section input[type="email"],
+        .form-section textarea {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--color-light-gray);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1em;
+            color: var(--color-dark-blue);
+        }
+
+        .form-section textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-section input:focus,
+        .form-section textarea:focus {
+            border-color: var(--color-sky-blue);
+            box-shadow: 0 0 0 3px rgba(116, 172, 223, 0.3);
+            outline: none;
+        }
+
+        .form-section button {
+            background-color: var(--color-green);
+            color: var(--color-white);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .form-section button:hover {
+            background-color: #2ecc71;
+            transform: translateY(-2px);
+        }
+
+        .form-section.admin-login button {
+            background-color: var(--color-gold);
+            color: var(--color-dark-blue);
+        }
+
+        .form-section.admin-login button:hover {
+            background-color: var(--color-sky-blue);
+            color: var(--color-white);
+        }
+
+        .error-message {
+            color: var(--color-red);
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none; /* Oculto por defecto */
+        }
+
+        .success-message {
+            color: var(--color-green);
+            margin-top: -10px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none; /* Oculto por defecto */
+        }
+        
+        .disclaimer {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 95%;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+            .image-gallery img {
+                width: 100px;
+                height: 70px;
+            }
+            .main-button {
+                padding: 12px 20px;
+                font-size: 1em;
+            }
+            .button-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bienvenido a Meta RP</h1>
+        <p>¡Explora nuestro servidor de liberty county inspiradoen argentina 🇦🇷</p>
+
+        <div class="image-gallery" id="imageGallery">
+            <!-- Las imágenes se cargarán aquí desde JavaScript -->
+        </div>
+
+        <div class="button-section">
+            <button class="main-button" id="verificacionBtn">Verificación</button>
+            <button class="main-button admin" id="administracionBtn">Administración</button>
+        </div>
+
+        <!-- Sección de Verificación -->
+        <div id="verificacionForm" class="form-section">
+            <h2>Formulario de Verificación</h2>
+            <form id="userVerificationForm">
+                <label for="discordNick">Nick de Discord:</label>
+                <input type="text" id="discordNick" name="discordNick" required>
+
+                <label for="robloxNick">Nick de Roblox:</label>
+                <input type="text" id="robloxNick" name="robloxNick" required>
+
+                <label for="roleplayKnowledge">¿Tienes conocimiento en Roleplay?:</label>
+                <textarea id="roleplayKnowledge" name="roleplayKnowledge" rows="3" required></textarea>
+
+                <label for="whyMetaRP">¿Por qué quieres entrar a Meta RP?:</label>
+                <textarea id="whyMetaRP" name="whyMetaRP" rows="4" required></textarea>
+
+                <label for="commitNorms">¿Te comprometes a seguir las normativas del servidor?:</label>
+                <input type="text" id="commitNorms" name="commitNorms" placeholder="Sí/No" required>
+
+                <p class="success-message" id="verificationSuccess">¡Formulario enviado con éxito! Un administrador lo revisará pronto.</p>
+                <p class="error-message" id="verificationError">Hubo un error al enviar el formulario. Inténtalo de nuevo.</p>
+
+                <button type="submit">Enviar Verificación</button>
+            </form>
+        </div>
+
+        <!-- Sección de Administración -->
+        <div id="administracionLogin" class="form-section admin-login">
+            <h2>Acceso de Administración</h2>
+            <form id="adminLoginForm">
+                <label for="adminUser">Usuario:</label>
+                <input type="text" id="adminUser" name="adminUser" required>
+
+                <label for="adminPass">Contraseña:</label>
+                <input type="password" id="adminPass" name="adminPass" required>
+
+                <p class="error-message" id="adminLoginError">Usuario o contraseña incorrectos.</p>
+                <p class="success-message" id="adminLoginSuccess">¡Bienvenido administrador!</p>
+
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+        
+        <p class="disclaimer">
+            &copy; 2026 Meta RP. Todos los derechos reservados.
+        </p>
+    </div>
+
+    <script>
+        // --- Configuración e Imágenes ---
+        const IMAGE_LINKS = [
+            "https://i.imgur.com/example1.jpg",
+            "https://i.imgur.com/example2.jpg", 
+            "https://i.imgur.com/example3.jpg",
+            "https://i.imgur.com/example4.jpg",
+            "https://i.imgur.com/example5.jpg",
+            // Agrega más links de imágenes aquí
+        ];
+
+        // NOTA IMPORTANTE: Para la verificación del staff, NECESITAS el mismo ADMIN_USER y ADMIN_PASS
+        // que configuraste en el .env de tu bot de Discord. En un entorno real, esto se haría
+        // mediante una API segura que verifique las credenciales. Por simplicidad, aquí las 
+        // definimos en el cliente, pero NO ES SEGURO para un entorno público sin un backend.
+        const ADMIN_USER = "MetaRP123";
+        const ADMIN_PASS = "ERLCMeta26";
+
+        // --- Elementos del DOM ---
+        const imageGallery = document.getElementById('imageGallery');
+        const verificacionBtn = document.getElementById('verificacionBtn');
+        const administracionBtn = document.getElementById('administracionBtn');
+        const verificacionForm = document.getElementById('verificacionForm');
+        const administracionLogin = document.getElementById('administracionLogin');
+        const userVerificationForm = document.getElementById('userVerificationForm');
+        const adminLoginForm = document.getElementById('adminLoginForm');
+        const adminLoginError = document.getElementById('adminLoginError');
+        const adminLoginSuccess = document.getElementById('adminLoginSuccess');
+        const verificationSuccess = document.getElementById('verificationSuccess');
+        const verificationError = document.getElementById('verificationError');
+
+        // --- Funciones de Utilidad ---
+        function showSection(section) {
+            verificacionForm.style.display = 'none';
+            administracionLogin.style.display = 'none';
+            adminLoginError.style.display = 'none';
+            adminLoginSuccess.style.display = 'none';
+            verificationSuccess.style.display = 'none';
+            verificationError.style.display = 'none';
+            section.style.display = 'block';
+        }
+
+        function loadImages() {
+            IMAGE_LINKS.forEach(link => {
+                const img = document.createElement('img');
+                img.src = link;
+                img.alt = "Imagen de Meta RP";
+                imageGallery.appendChild(img);
+            });
+        }
+
+        // --- Event Listeners ---
+        verificacionBtn.addEventListener('click', () => {
+            showSection(verificacionForm);
+        });
+
+        administracionBtn.addEventListener('click', () => {
+            showSection(administracionLogin);
+        });
+
+        userVerificationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            verificationSuccess.style.display = 'none';
+            verificationError.style.display = 'none';
+
+            const formData = new FormData(userVerificationForm);
+            const data = Object.fromEntries(formData.entries());
+
+            console.log("Datos de Verificación del Usuario:", data);
+
+            // TODO: Aquí deberías enviar estos datos a tu backend (ej. Flask/Express)
+            // que luego interactuaría con tu bot de Discord para agregarlos a la cola de revisión.
+            // Por ahora, solo simula el éxito.
+
+            try {
+                // Ejemplo de cómo enviar a un endpoint de tu servidor Flask/Express
+                // await fetch('/api/submit_verification', {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //     },
+                //     body: JSON.stringify(data),
+                // });
+                
+                verificationSuccess.style.display = 'block';
+                userVerificationForm.reset(); // Limpiar formulario
+            } catch (error) {
+                console.error("Error al enviar el formulario:", error);
+                verificationError.style.display = 'block';
+            }
+        });
+
+        adminLoginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            adminLoginError.style.display = 'none';
+            adminLoginSuccess.style.display = 'none';
+
+            const user = document.getElementById('adminUser').value;
+            const pass = document.getElementById('adminPass').value;
+
+            if (user === STAFF_USER && pass === STAFF_PASS) {
+                adminLoginSuccess.style.display = 'block';
+                alert("¡Acceso de administrador concedido! (En un sistema real, aquí serías redirigido a un panel de control)");
+                // TODO: En un sistema real, aquí redirigirías al panel de administración o cargarías contenido.
+                // adminLoginForm.reset();
+            } else {
+                adminLoginError.style.display = 'block';
+            }
+        });
+
+        // --- Inicialización ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadImages();
+        });
+    </script>
+</body>
+</html>
